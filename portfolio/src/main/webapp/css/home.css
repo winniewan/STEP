@@ -1,17 +1,17 @@
 .container {
-    font-family: 'Roboto', sans-serif;
-    text-align: center;
     align-items: center;
     display: flex;
+    font-family: 'Roboto', sans-serif;
     justify-content: space-around;
     min-height: 100vh;
+    text-align: center;
 }
 
 .column {
     flex: 50%;
-    padding: 25px;
     font-size: 15px;
     letter-spacing: 1px;
+    padding: 25px;
 }
 
 h2 {
@@ -20,14 +20,14 @@ h2 {
 
 p {
     font-size: 20px;
-    padding: 75px 50px;
     line-height: 200%;
+    padding: 75px 50px;
 }
 
 .content {
     background-image: url(../images/background/bg1.jpg);
-    background-repeat: no-repeat;
-    height: 100%;
     background-position: center;
+    background-repeat: no-repeat;
     background-size: cover;
+    height: 100%;
 }
