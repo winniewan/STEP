@@ -5,9 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Experiences</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/nav-footer.css">
-    <script src="script.js"></script>
+    <link rel="stylesheet" href="css/experience.css">
   </head>
   <body>
     <nav>
@@ -22,65 +21,113 @@
       </ul>
     </nav>
 
-    <div id="content">
-      <h1>2018 Google’s CSSI Program</h1>
-      <img src="images/experience/cssi/cssi1.jpg" alt="cssi"/>
-      <p>
-        I participated in Google’s CSSI Program in Google’s NYC office.
-        Google's Computer Science Summer Institute is a three-week
-        introduction to computer science for graduating high school
-        seniors with a passion for technology — especially students
-        from historically underrepresented groups in the field. This
-        was an eye opening experience because it was my first contact
-        with CS in the industry. I was able to build personal networks
-        and friendships in a unique environment filled with people from
-        different backgrounds. I still keep in touch with my peers in
-        the program! 
-      </p>
+    <h1 class="experience-title">Experience Timeline</h1>
 
-      <h1>2019 U of R’s Dandyhacks</h1>
-      <img src="images/experience/dandyhacks/dandyhacks1.png" alt="dandyhacks"/>
-      <p>
-        This is the University of Rochester’s annual 36-hour hackathon.
-        I was part of the hackathon’s organizing team - team of 15 students.
-        We had over 100 participants come from everywhere to attend the event.
-        It was a thrilling experience to work with sponsors, food vendors,
-        professors, the university, my team members, and most importantly,
-        the hackers themselves.
-      </p>
+    <!-- Timeline bar subheadings -->
 
-      <h1>2019 Google’s EP Internship</h1>
-      <img src="images/experience/ep/ep5.jpg" alt="ep"/>
-      <p>
-        Google’s Engineering Practicum Internship has been renamed to STEP
-        and it’s exactly the same program. During the internship, I was on
-        the Geo Team, specifically the Google My Business (GMB) iOS team.
-        I was working on a project that creates a better experience for
-        merchants to add features to their business profile.
-      </p>
+    <div class="container">
+      <div id="bar-container">
+        <ul>
+          <li class="step step01 active">
+            <div class="step-inner">2018 Google CSSI</div>
+          </li>
 
-      <h1>2020 Google’s STEP Internship</h1>
-      <img src="images/experience/step/step.jpg" alt="step"/>
-      <p>
-        This year is a little different from the others. During the time of
-        the pandemic, Google is hosting their internships virtually. I am
-        currently working at my home in NYC. The internship project has
-        changed to open source and I am on the Google Cloud team,
-        specifically the Proctor team. The project will be a (flexible)
-        capstone project and I am excited to be working with 2 other STEP
-        interns, my hosts, and my team members.
-      </p>
+          <li class="step step02">
+            <div class="step-inner">2019 UoR Dandyhacks</div>
+          </li>
 
-      <h1>2020 Grace Hopper Celebration Conference (Virtual)</h1>
-      <img src="images/experience/ghc/ghc.jpg" alt="ghc"/>
-      <p>
-        This year’s GHC will be hosting their event virtually. The Grace
-        Hopper Celebration of Women in Computing is a series of conferences
-        designed to bring the research and career interests of women in
-        computing to the forefront. It is the world's largest gathering of
-        women in computing. There will be more information upcoming about
-        this event since it will be hosted virtually.
-      </p>
+          <li class="step step03">
+            <div class="step-inner">2019 Google EP</div>
+          </li>
+
+          <li class="step step04">
+            <div class="step-inner">2020 Google STEP</div>
+          </li>
+
+          <li class="step step05">
+            <div class="step-inner">2020 GHC</div>
+          </li>
+        </ul>
+
+        <!-- Timeline line bar -->
+
+        <div id="line">
+          <div id="line-process"></div>
+        </div>
+      </div>
+
+      <!-- Each timeline's content -->
+
+      <div id="content">
+        <div class="section-content cssi active">
+        <h2>2018 Google’s CSSI Program</h2>
+        <img src="images/experience/cssi/cssi1.jpg" alt="cssi"/>
+        <p>
+          I participated in Google’s CSSI Program in Google’s NYC office.
+          Google's Computer Science Summer Institute is a three-week
+          introduction to computer science for graduating high school
+          seniors with a passion for technology — especially students
+          from historically underrepresented groups in the field. This
+          was an eye opening experience because it was my first contact
+          with CS in the industry. I was able to build personal networks
+          and friendships in a unique environment filled with people from
+          different backgrounds. I still keep in touch with my peers in
+          the program! 
+        </p>
+        </div>
+
+        <div class="section-content dandyhacks">
+        <h2>2019 U of R’s Dandyhacks</h2>
+        <img src="images/experience/dandyhacks/dandyhacks1.png" alt="dandyhacks"/>
+        <p>
+          This is the University of Rochester’s annual 36-hour hackathon.
+          I was part of the hackathon’s organizing team - team of 15 students.
+          We had over 100 participants come from everywhere to attend the event.
+          It was a thrilling experience to work with sponsors, food vendors,
+          professors, the university, my team members, and most importantly,
+          the hackers themselves.
+        </p>
+        </div>
+
+        <div class="section-content ep">
+        <h2>2019 Google’s EP Internship</h2>
+        <img src="images/experience/ep/ep5.jpg" alt="ep"/>
+        <p>
+          Google’s Engineering Practicum Internship has been renamed to STEP
+          and it’s exactly the same program. During the internship, I was on
+          the Geo Team, specifically the Google My Business (GMB) iOS team.
+          I was working on a project that creates a better experience for
+          merchants to add features to their business profile.
+        </p>
+        </div>
+
+        <div class="section-content intern">
+        <h2>2020 Google’s STEP Internship</h2>
+        <img src="images/experience/step/step.jpg" alt="step"/>
+        <p>
+          This year is a little different from the others. During the time of
+          the pandemic, Google is hosting their internships virtually. I am
+          currently working at my home in NYC. The internship project has
+          changed to open source and I am on the Google Cloud team,
+          specifically the Proctor team. The project will be a (flexible)
+          capstone project and I am excited to be working with 2 other STEP
+          interns, my hosts, and my team members.
+        </p>
+        </div>
+
+        <div class="section-content ghc">
+        <h2>2020 Grace Hopper Celebration Conference (Virtual)</h2>
+        <img src="images/experience/ghc/ghc.jpg" alt="ghc"/>
+        <p>
+          This year’s GHC will be hosting their event virtually. The Grace
+          Hopper Celebration of Women in Computing is a series of conferences
+          designed to bring the research and career interests of women in
+          computing to the forefront. It is the world's largest gathering of
+          women in computing. There will be more information upcoming about
+          this event since it will be hosted virtually.
+        </p>
+        </div>
+        </div>
     </div>
 
     <div class="footer">
@@ -97,5 +144,10 @@
         </div>
       </div>  
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="js/experience.js"></script>
+
   </body>
 </html>
