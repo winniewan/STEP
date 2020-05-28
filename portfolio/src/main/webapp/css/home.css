@@ -1,0 +1,33 @@
+.container {
+    align-items: center;
+    display: flex;
+    font-family: 'Roboto', sans-serif;
+    justify-content: space-around;
+    min-height: 100vh;
+    text-align: center;
+}
+
+.column {
+    flex: 50%;
+    font-size: 15px;
+    letter-spacing: 1px;
+    padding: 25px;
+}
+
+h2 {
+    font-size: 50px;
+}
+
+p {
+    font-size: 20px;
+    line-height: 200%;
+    padding: 75px 50px;
+}
+
+.content {
+    background-image: url(../images/background/bg1.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+}
