@@ -5,20 +5,23 @@
     padding: 0;
 }
 
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 /* Navigation bar */
 
 nav {
     align-items: center;
     background-color: #56ccc8;
     display: flex;
-    font-family: 'Roboto', sans-serif;
     justify-content: space-around;
-    min-height: 10vh;
+    min-height: 15vh;
 }
 
 .logo {
     color: #FFFAFA;
-    font-size: 25px;
+    font-size: 30px;
     letter-spacing: 5px;
     text-transform: uppercase;
 }
@@ -26,7 +29,7 @@ nav {
 .nav-li {
     display: flex;
     justify-content: space-around;
-    width: 25%;
+    width: 30%;
 }
 
 .nav-li li {
@@ -35,7 +38,7 @@ nav {
 
 .nav-li a {
     color: #FFFAFA;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: bold;
     letter-spacing: 3px;
     text-decoration: none;
@@ -43,4 +46,35 @@ nav {
 
 .active {
     border-bottom: solid white;
+}
+
+/* Footer */
+
+.footer {
+    background-color: #56ccc8;
+    margin: auto;
+    overflow: hidden;
+    width: 100%;
+}
+
+.boxes {
+    margin-top: 20px;
+}
+
+.box {
+    float: left;
+    padding-bottom: 20px;
+    text-align: center;
+    width: 30%;
+}
+
+.box img {
+    width: 100px;
+}
+
+.footer h1 {
+    float: 30px;
+    font-size: 50px;
+    padding-bottom: 40px;
+    text-align: center;
 }
