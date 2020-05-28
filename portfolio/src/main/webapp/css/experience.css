@@ -1,0 +1,164 @@
+.experience-title {
+    color: pink;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Timeline bar buttons */
+
+#bar-container {
+    height: 15vh;
+    margin: auto;
+    margin-top: 50px;
+    position: relative;
+    width: 90%;
+}
+
+#bar-container ul {
+    margin-top: -40px;
+    padding: 0;
+    padding-top: 15px;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+}
+
+#bar-container li:before {
+    border-radius: 50%;
+    border: solid 2px #aaa;
+    content: "";
+    display: block;
+    height: 30px;
+    margin: auto;
+    transition: all ease .3s;
+    width: 30px;
+}
+
+#bar-container li.active:before,
+#bar-container li:hover:before {
+    background: pink;
+}
+
+/* Timeline bar subheadings */
+
+#bar-container li {
+    color: #aaa;
+    cursor: pointer;
+    float: left;
+    font-weight: 900;
+    list-style: none;
+    position: relative;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all ease .2s;
+    width: 20%;
+}
+
+.step-inner {
+    bottom: 0;
+    font-size: 14px;
+    position: absolute;
+    width: 100%;
+}
+
+#bar-container li.active,
+#bar-container li:hover {
+    color: black;
+}
+
+#bar-container li:after {
+    border: solid 7px pink;
+    box-shadow: 0 2px 13px -1px rgba(0,0,0,0.3);
+    content: "";
+    display: block;
+    height: 5px;
+    list-style: none;
+    margin: 40px auto;
+    transition: all ease 0.2s;
+    width: 5px;
+}
+
+#bar-container li:hover:after {
+    background: black;
+}
+
+#bar-container li:active:after {
+    background: black;
+}
+
+/* Line design */
+
+#line {
+    background: pink;
+    border-radius: 50px;
+    height: 5px;
+    left: 10%;
+    margin: auto;
+    position: absolute;
+    top: 60px;
+    transition: all ease 0.9s;
+    width: 80%;
+    z-index: -1;
+}
+
+#line-process {
+    background: pink;
+    border-radius: 50px;
+    content: "";
+    height: 100%;
+    position: absolute;
+    transition: all ease 0.9s;
+    width: 3%;
+    z-index: 2;
+}
+
+/* Timeline content */
+
+#content {
+    background: #f3f3f3;
+    border-radius: 4px;
+    margin: auto;
+    width: 90%;
+}
+
+#content .section-content {
+    padding: 30px 40px;
+    text-align: center;
+}
+
+#content .section-content h2{
+    color: #333;
+    font-size: 17px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+#content .section-content p {
+    color: #777;
+    font-size: 16px;
+    line-height: 1.8em;
+}
+
+#content .section-content {
+    animation: FadeInUp 700ms ease 1;
+    animation-fill-mode: forwards;
+    display: none;
+    opacity: 0;
+    transform:translateY(15px);
+}
+
+#content .section-content.active {
+    display: block;
+}
+
+@keyframes FadeInUp {
+    0% {
+        transform:translateY(15px);
+        opacity: 0;
+    }
+
+    100% {
+        transform:translateY(0px);
+        opacity: 1;
+    }
+}
