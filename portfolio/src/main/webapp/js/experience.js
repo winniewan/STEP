@@ -1,4 +1,4 @@
-    $(".step").click( function() {
+$(".step").click( function() {
 	$(this).addClass("active").prevAll().addClass("active");
 	$(this).nextAll().removeClass("active");
 });
