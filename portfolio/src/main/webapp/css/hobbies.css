@@ -74,3 +74,32 @@
         opacity: 0;
     }
 }
+
+@media screen and (max-width: 1150px) {
+    .slideshow-text {
+        max-width: 70%;
+        padding: 5rem 1rem;
+    }
+
+    .slideshow-text h2 {
+        font-size: 4rem;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .slideshow-text {
+        bottom: 0;
+        max-width: 100%;
+        padding: 2rem;
+        top: initial;
+        transform: initial;
+    }
+
+    .slideshow-text h2 {
+        font-size: 3rem;
+    }
+
+    .slideshow-text p {
+        font-size: 1.4rem;
+    }
+}
