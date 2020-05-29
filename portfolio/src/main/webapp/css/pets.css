@@ -1,5 +1,9 @@
 .content {
     align-items: center;
+    background: url(../images/pets/bg.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -11,8 +15,9 @@ h2 {
     color: pink; 
     font-family: 'Roboto', sans-serif;
     font-size: 45px;
-    padding: 50px;
+    padding: 15px;
     text-align: center;
+    
 }
 
 .images img {
