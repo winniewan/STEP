@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet responsible for creating new comments. */
 @WebServlet("/new-comment")
 public class NewCommentServlet extends HttpServlet {
+
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String text = request.getParameter("text-input");
