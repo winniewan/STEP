@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Pets</title>
+    <title>Winnie Wan</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/nav-footer.css">
-    <link rel="stylesheet" href="css/pets.css">
+    <link rel="stylesheet" href="css/comments.css">
+    <script src="js/script.js"></script>
   </head>
-  <body>
+  <body onload="displayComments()">
     <nav>
       <div class="logo">
         <h1>Winnie Wan</h1>
@@ -17,21 +18,27 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="experience.html">Experiences</a></li>
         <li><a href="hobbies.html">Hobbies</a></li>
-        <li class="active"><a href="pets.html">Pets</a></li>
-        <li><a href="comments.html">Comments</a></li>
+        <li><a href="pets.html">Pets</a></li>
+        <li class="active"><a href="comments.html">Comments</a></li>
       </ul>
     </nav>
 
     <div class="content">
-      <h2>My Guinea Pigs: Cookie and Milky :)</h2>
-      <div class="images">
-        <img src="images/pets/gp1.jpeg" class="image" alt="guineapig"/>
-        <img src="images/pets/gp2.jpeg" class="image" alt="guineapig"/>
-        <img src="images/pets/gp3.jpeg" class="image" alt="guineapig"/>
-        <img src="images/pets/gp4.jpeg" class="image" alt="guineapig"/>
-        <img src="images/pets/gp5.jpeg" class="image" alt="guineapig"/>
-        <img src="images/pets/gp6.jpg" class="image" alt="guineapig"/>
-        <img src="images/pets/gp7.jpg" class="image" alt="guineapig"/>
+      <div class="container">
+        <form action="/data" method="POST">
+          <p>Enter a comment:</p>
+          <textarea name="text-input">hi</textarea>
+          <br/><br/>
+
+          <p>How many comments to display?:</p>
+          <input type="number" id="update-total" name="comments-total" min="1" max="5" value="5" onchange="displayComments()">
+          <br/><br/>
+
+          <input type="submit"/>
+        </form>
+
+        <ul id="comment-section"></ul>
+        
       </div>
     </div>
 
@@ -49,8 +56,5 @@
         </div>
       </div>  
     </div>
-
-    <script src="js/pets.js"></script>
-    
   </body>
 </html>
