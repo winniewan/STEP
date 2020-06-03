@@ -57,11 +57,11 @@ public class ListCommentsServlet extends HttpServlet {
   }
   
   /** Convert String input into an int. */
-  private int getNumber(String numberString) {
+  private int getNumber(String numString) {
     try {
-      return Integer.parseInt(numberString);
+      return Integer.parseInt(numString);
     } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + numberString);
+      System.err.println("Could not convert to int: " + numString);
       return -1;
     }
   }
