@@ -17,14 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet responsible for listing comments. */
-@WebServlet("/list-comments")
+@WebServlet("/comments")
 public class ListCommentsServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Obtain # of comments to display from URL parameter input.
-    String numString = request.getParameter("requestComments");
-    int requestComments = getNumber(numString);
+    String page_size_str = request.getParameter("page_size");
+    int page_size = getNumber(page_size_str);
 
     // Sort entities according to time stamp.
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);;
@@ -46,22 +46,22 @@ public class ListCommentsServlet extends HttpServlet {
     response.setContentType("application/json;");
 
     // If requested # of comments is greater than total comments, adjust requested # of comments.
-    if (comments.size() < requestComments) {
-        requestComments = comments.size();
+    if (comments.size() < page_size) {
+        page_size = comments.size();
     }
 
-    List<Comment> latestComment = comments.subList(0, requestComments);
+    List<Comment> latestComment = comments.subList(0, page_size);
 
     Gson gson = new Gson();
     response.getWriter().println(gson.toJson(latestComment));
   }
   
   /** Convert String input into an int. */
-  private int getNumber(String numString) {
+  private int getNumber(String page_size_str) {
     try {
-      return Integer.parseInt(numString);
+      return Integer.parseInt(page_size_str);
     } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + numString);
+      System.err.println("Could not convert to int: " + page_size_str);
       return -1;
     }
   }
