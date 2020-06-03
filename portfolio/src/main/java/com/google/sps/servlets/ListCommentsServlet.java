@@ -24,8 +24,8 @@ public class ListCommentsServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Obtain # of comments to display from URL parameter input.
-    String page_size_str = request.getParameter("page_size");
-    int page_size = getNumber(page_size_str);
+    String pageSizeString = request.getParameter("page-size");
+    int pageSize = getNumber(pageSizeString);
 
     // Sort entities according to time stamp.
     Query query = new Query("Comment").addSort("timestamp", SortDirection.DESCENDING);;
@@ -33,8 +33,8 @@ public class ListCommentsServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Retreive entities based on page_size.
-    List<Entity> entities = results.asList(FetchOptions.Builder.withLimit(page_size));
+    // Retreive entities based on page size.
+    List<Entity> entities = results.asList(FetchOptions.Builder.withLimit(pageSize));
 
     // Convert entities to Comment objects.
     List<Comment> comments = new ArrayList<>();
@@ -53,11 +53,11 @@ public class ListCommentsServlet extends HttpServlet {
   }
   
   /** Convert String input into an int. */
-  private int getNumber(String page_size_str) {
+  private int getNumber(String pageSizeString) {
     try {
-      return Integer.parseInt(page_size_str);
+      return Integer.parseInt(pageSizeString);
     } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + page_size_str);
+      System.err.println("Could not convert to int: " + pageSizeString);
       return -1;
     }
   }
