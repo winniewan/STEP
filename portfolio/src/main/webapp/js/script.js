@@ -1,5 +1,5 @@
 function displayComments() {
-  const pageSize = document.getElementById('update-page').value;
+  const pageSize = document.getElementById('page-size').value;
 
   fetch('/comments?page-size='+pageSize).then(response => response.json()).then((comments) => {
     // comments is an object, not a string, so we have to
