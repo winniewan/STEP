@@ -3,6 +3,7 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.FetchOptions;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -32,9 +33,12 @@ public class ListCommentsServlet extends HttpServlet {
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
 
-    // Retreive entities as Comment objects.
+    // Retreive entities based on page_size.
+    List<Entity> entities = results.asList(FetchOptions.Builder.withLimit(page_size));
+
+    // Convert entities to Comment objects.
     List<Comment> comments = new ArrayList<>();
-    for (Entity entity : results.asIterable()) {
+    for (Entity entity : entities) {
       long id = entity.getKey().getId();
       String text = (String) entity.getProperty("text");
       long timestamp = (long) entity.getProperty("timestamp");
@@ -44,16 +48,8 @@ public class ListCommentsServlet extends HttpServlet {
     }
 
     response.setContentType("application/json;");
-
-    // If requested # of comments is greater than total comments, adjust requested # of comments.
-    if (comments.size() < page_size) {
-        page_size = comments.size();
-    }
-
-    List<Comment> latestComment = comments.subList(0, page_size);
-
     Gson gson = new Gson();
-    response.getWriter().println(gson.toJson(latestComment));
+    response.getWriter().println(gson.toJson(comments));
   }
   
   /** Convert String input into an int. */
