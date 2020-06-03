@@ -1,3 +1,4 @@
+/** Displays a list of comments from user's preference */
 function displayComments() {
   const pageSize = document.getElementById('page-size').value;
 
