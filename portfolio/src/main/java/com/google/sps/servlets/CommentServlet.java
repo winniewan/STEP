@@ -4,6 +4,8 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -68,15 +70,16 @@ public class CommentServlet extends HttpServlet {
     response.sendRedirect("/comments.html");
   }
 
-//   @Override
-//   public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-//     long id = Long.parseLong(request.getParameter("id"));
+  @Override
+  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      System.err.println("Path link is: " + request.getRequestURL());
+    long id = Long.parseLong(request.getParameter("id"));
 
-//     Key commentEntityKey = KeyFactory.createKey("Comment", id);
-//     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-//     datastore.delete(commentEntityKey);
-//   }
-  
+    Key commentEntityKey = KeyFactory.createKey("Comment", id);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.delete(commentEntityKey);
+  }
+
   /** Convert String input into an int. */
   private int getNumber(String pageSizeString) {
     try {
