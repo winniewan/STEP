@@ -10,6 +10,7 @@ import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +19,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet responsible for listing comments. */
-@WebServlet("/comments")
-public class ListCommentsServlet extends HttpServlet {
+@WebServlet("/comment")
+public class CommentServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -51,6 +52,30 @@ public class ListCommentsServlet extends HttpServlet {
     Gson gson = new Gson();
     response.getWriter().println(gson.toJson(comments));
   }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String text = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
+
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+    commentEntity.setProperty("timestamp", timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+
+    response.sendRedirect("/comments.html");
+  }
+
+//   @Override
+//   public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//     long id = Long.parseLong(request.getParameter("id"));
+
+//     Key commentEntityKey = KeyFactory.createKey("Comment", id);
+//     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+//     datastore.delete(commentEntityKey);
+//   }
   
   /** Convert String input into an int. */
   private int getNumber(String pageSizeString) {

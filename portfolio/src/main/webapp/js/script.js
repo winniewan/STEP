@@ -5,7 +5,7 @@ function displayComments() {
   const commentElement = document.getElementById('comment-section');
   commentElement.innerHTML = '';
 
-  fetch('/comments?page-size='+pageSize)
+  fetch('/comment?page-size='+pageSize)
     .then(response => response.json())
     .then((comments) => comments.forEach((comment) => {
       commentElement.appendChild(createCommentElement(comment));
