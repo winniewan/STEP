@@ -1,15 +1,19 @@
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 import com.google.appengine.api.datastore.FetchOptions;
+import com.google.appengine.api.datastore.Key;
+import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.gson.Gson;
 import com.google.sps.data.Comment;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.annotation.WebServlet;
@@ -18,8 +22,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet responsible for listing comments. */
-@WebServlet("/comments")
-public class ListCommentsServlet extends HttpServlet {
+@WebServlet("/comment/*")
+public class CommentServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -51,13 +55,63 @@ public class ListCommentsServlet extends HttpServlet {
     Gson gson = new Gson();
     response.getWriter().println(gson.toJson(comments));
   }
-  
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String text = request.getParameter("text-input");
+    long timestamp = System.currentTimeMillis();
+
+    Entity commentEntity = new Entity("Comment");
+    commentEntity.setProperty("text", text);
+    commentEntity.setProperty("timestamp", timestamp);
+
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+
+    response.sendRedirect("/comments.html");
+  }
+
+  @Override
+  public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String[] idArray = request.getPathInfo().split("/");
+    if (idArray.length < 2) {
+        return;
+    }
+
+    long id = getId(idArray[1]);
+    if (id == -1) {
+        return;
+    }
+
+    Key commentEntityKey = KeyFactory.createKey("Comment", id);
+    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    try {
+      Entity ent = datastore.get(commentEntityKey);
+    } catch (EntityNotFoundException e) {
+      System.err.println("Could not find key: " + commentEntityKey);
+      return;
+    }
+
+    datastore.delete(commentEntityKey);
+  }
+
   /** Convert String input into an int. */
   private int getNumber(String pageSizeString) {
     try {
       return Integer.parseInt(pageSizeString);
     } catch (NumberFormatException e) {
       System.err.println("Could not convert to int: " + pageSizeString);
+      return 1;
+    }
+  }
+
+  /** Convert String input into an long. */
+  private long getId(String id) {
+    try {
+      return Long.parseLong(id);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to long: " + id);
       return -1;
     }
   }

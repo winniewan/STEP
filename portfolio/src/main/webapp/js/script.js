@@ -5,7 +5,7 @@ function displayComments() {
   const commentElement = document.getElementById('comment-section');
   commentElement.innerHTML = '';
 
-  fetch('/comments?page-size='+pageSize)
+  fetch('/comment?page-size='+pageSize)
     .then(response => response.json())
     .then((comments) => comments.forEach((comment) => {
       commentElement.appendChild(createCommentElement(comment));
@@ -20,6 +20,21 @@ function createCommentElement(comment) {
   const textElement = document.createElement('span');
   textElement.innerText = comment.text;
 
+  const deleteButtonElement = document.createElement('button');
+  deleteButtonElement.innerText = 'Delete';
+  deleteButtonElement.addEventListener('click', () => {
+    deleteComment(comment);
+
+    // Remove the comment from the DOM.
+    commentElement.remove();
+  });
+
   commentElement.appendChild(textElement);
+  commentElement.appendChild(deleteButtonElement);
   return commentElement;
+}
+
+/** Tells the server to delete the comment. */
+function deleteComment(comment) {
+  fetch('/comment/'+comment.id, {method:"DELETE"}); 
 }
