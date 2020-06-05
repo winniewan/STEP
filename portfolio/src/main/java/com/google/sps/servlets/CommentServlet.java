@@ -72,8 +72,8 @@ public class CommentServlet extends HttpServlet {
 
   @Override
   public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    String idString = request.getPathInfo().substring(1);
-    long id = Long.parseLong(idString);
+    String[] idArray = request.getPathInfo().split("/");
+    long id = Long.parseLong(idArray[1]);
 
     Key commentEntityKey = KeyFactory.createKey("Comment", id);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
