@@ -36,7 +36,5 @@ function createCommentElement(comment) {
 
 /** Tells the server to delete the comment. */
 function deleteComment(comment) {
-  const params = new URLSearchParams();
-  params.append('id', comment.id);
-  fetch('/comment?'+params.toString(), {method:"DELETE"}); 
+  fetch('/comment/'+comment.id, {method:"DELETE"}); 
 }

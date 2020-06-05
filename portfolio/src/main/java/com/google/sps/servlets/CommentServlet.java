@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet responsible for listing comments. */
-@WebServlet("/comment")
+@WebServlet("/comment/*")
 public class CommentServlet extends HttpServlet {
 
   @Override
@@ -72,8 +72,8 @@ public class CommentServlet extends HttpServlet {
 
   @Override
   public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      System.err.println("Path link is: " + request.getRequestURL());
-    long id = Long.parseLong(request.getParameter("id"));
+    String idString = request.getPathInfo().substring(1);
+    long id = Long.parseLong(idString);
 
     Key commentEntityKey = KeyFactory.createKey("Comment", id);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
