@@ -1,5 +1,6 @@
 package com.google.sps.servlets;
 
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -73,10 +74,25 @@ public class CommentServlet extends HttpServlet {
   @Override
   public void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String[] idArray = request.getPathInfo().split("/");
-    long id = Long.parseLong(idArray[1]);
+    if (idArray.length < 2) {
+        return;
+    }
+
+    long id = getId(idArray[1]);
+    if (id == -1) {
+        return;
+    }
 
     Key commentEntityKey = KeyFactory.createKey("Comment", id);
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+
+    try {
+      Entity ent = datastore.get(commentEntityKey);
+    } catch (EntityNotFoundException e) {
+      System.err.println("Could not find key: " + commentEntityKey);
+      return;
+    }
+
     datastore.delete(commentEntityKey);
   }
 
@@ -86,6 +102,16 @@ public class CommentServlet extends HttpServlet {
       return Integer.parseInt(pageSizeString);
     } catch (NumberFormatException e) {
       System.err.println("Could not convert to int: " + pageSizeString);
+      return 1;
+    }
+  }
+
+  /** Convert String input into an long. */
+  private long getId(String id) {
+    try {
+      return Long.parseLong(id);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to long: " + id);
       return -1;
     }
   }
