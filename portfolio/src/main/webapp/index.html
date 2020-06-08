@@ -7,8 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/nav-footer.css">
     <link rel="stylesheet" href="css/home.css">
+    <script src="js/home.js"></script>
   </head>
-  <body>
+  <body onload="getLoginStatus()">
     <nav>
       <div class="logo">
         <h1>Winnie Wan</h1>
@@ -19,11 +20,16 @@
         <li><a href="hobbies.html">Hobbies</a></li>
         <li><a href="pets.html">Pets</a></li>
         <li><a href="comments.html">Comments</a></li>
+        <li><a href="/login">Login</a></li>
       </ul>
     </nav>
 
     <div class="content">
       <div class="container">
+        <div class="column">
+          <ul id="status-container"></ul>
+        </div> 
+
         <div class="column">
           <img src="images/home/portrait.jpg" alt="portrait"/>
         </div>
