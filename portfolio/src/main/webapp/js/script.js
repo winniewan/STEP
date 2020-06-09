@@ -9,8 +9,12 @@ function displayComments() {
     .then(response => response.json())
     .then((comments) => comments.forEach((comment) => {
       commentElement.appendChild(createCommentElement(comment));
-    }))
-};
+    }));
+  
+  fetch('/login').then(response => response.json()).then((user) => {
+    displayForm("comment-container", user.isLoggedin, commentElement);
+  });
+}
 
 /** Creates an element that represents a comment. */
 function createCommentElement(comment) {
@@ -37,4 +41,14 @@ function createCommentElement(comment) {
 /** Tells the server to delete the comment. */
 function deleteComment(comment) {
   fetch('/comment/'+comment.id, {method:"DELETE"}); 
+}
+
+/** Decides whether to hide or show comment form. */
+function displayForm(form, isLoggedin, commentElement) {
+  if(isLoggedin) {
+    document.getElementById(form).hidden = false;
+  } else {
+    document.getElementById(form).hidden = true;
+    commentElement.innerHTML = 'Please login';
+  }
 }
