@@ -1,7 +1,6 @@
 /** Update log-in status of users */
 function getLoginStatus() {
   fetch('/login').then(response => response.json()).then((user) => {
-    console.log(user);
     const statusElement = document.getElementById('status-container');
     statusElement.innerHTML = '';
     statusElement.appendChild(
