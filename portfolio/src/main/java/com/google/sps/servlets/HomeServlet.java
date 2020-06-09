@@ -16,25 +16,21 @@ public class HomeServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     UserService userService = UserServiceFactory.getUserService();
+    String index = "/index.html";
+    User userData;
     if (userService.isUserLoggedIn()) {
       String userEmail = userService.getCurrentUser().getEmail();
-      String urlToRedirectToAfterUserLogsOut = "/index.html";
-      String logoutUrl = userService.createLogoutURL(urlToRedirectToAfterUserLogsOut);
+      String logoutUrl = userService.createLogoutURL(index);
       
-      User userData = new User(true, userEmail, logoutUrl);
-
-      response.setContentType("application/json;");
-      Gson gson = new Gson();
-      response.getWriter().println(gson.toJson(userData));
+      userData = new User(true, userEmail, logoutUrl);
     } else {
-      String urlToRedirectToAfterUserLogsIn = "/index.html";
-      String loginUrl = userService.createLoginURL(urlToRedirectToAfterUserLogsIn);
+      String loginUrl = userService.createLoginURL(index);
       
-      User userData = new User(false, null, loginUrl);
-
-      response.setContentType("application/json;");
-      Gson gson = new Gson();
-      response.getWriter().println(gson.toJson(userData));
+      userData = new User(false, null, loginUrl);
     }
+
+    response.setContentType("application/json;");
+    Gson gson = new Gson();
+    response.getWriter().println(gson.toJson(userData));
   }
 }
