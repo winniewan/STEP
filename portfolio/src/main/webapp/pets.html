@@ -7,8 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/nav-footer.css">
     <link rel="stylesheet" href="css/pets.css">
+    <script src="js/home.js"></script>
   </head>
-  <body>
+  <body onload="getLoginStatus()">
     <nav>
       <div class="logo">
         <h1>Winnie Wan</h1>
@@ -19,8 +20,13 @@
         <li><a href="hobbies.html">Hobbies</a></li>
         <li class="active"><a href="pets.html">Pets</a></li>
         <li><a href="comments.html">Comments</a></li>
+        <li id="login-button"></li>
       </ul>
     </nav>
+
+    <div>
+      <ul id="status-container"></ul>
+    </div> 
 
     <div class="content">
       <h2>My Guinea Pigs: Cookie and Milky :)</h2>

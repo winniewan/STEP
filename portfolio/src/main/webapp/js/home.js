@@ -8,8 +8,9 @@ function getLoginStatus() {
         createListElement('Is the user logged in: ' + user.isLoggedin));
     statusElement.appendChild(
         createListElement('User email: ' + user.email));
-    statusElement.appendChild(
-        createLinkElement(user.url));
+
+    const loginElement = document.getElementById('login-button');
+    loginElement.appendChild(createUrlElement(user.url, user.isLoggedin));
   });
 }
 
@@ -20,14 +21,13 @@ function createListElement(text) {
   return liElement;
 }
 
-function createLinkElement(link) {
-    const liElement = document.createElement('li');
-    
+function createUrlElement(link, isLoggedin) {    
     const aElement = document.createElement('a');
     aElement.setAttribute('href', link);
-
-    liElement.innerText = "URL: ";
-    liElement.appendChild(aElement);
-    aElement.innerText = "Click here";
-    return liElement;
+    if (isLoggedin) {
+      aElement.innerText = "Logout";
+    } else {
+      aElement.innerText = "Login";
+    }
+    return aElement;
 }
