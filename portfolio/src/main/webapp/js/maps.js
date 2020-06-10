@@ -8,6 +8,15 @@ function createMap() {
   }
   
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+  var contentString = '<div id="content">'+
+      '<h1>Brooklyn, NY</h1>'+
+      '<p>This is where I was born and raised :)</p>'+
+      '</div>';
+
+  var infowindow = new google.maps.InfoWindow({
+    content: contentString
+  });
   
   var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
   var marker = new google.maps.Marker({
@@ -15,6 +24,10 @@ function createMap() {
     position: nycLatLng,
     title: "Hometown!",
     icon: image
+  });
+
+  marker.addListener('click', function() {
+    infowindow.open(map, marker);
   });
 
   // To add the marker to the map, call setMap();
