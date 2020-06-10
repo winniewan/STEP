@@ -1,14 +1,55 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Hello Google Maps</title>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkrY1XqHOusGtMlfsWSvFh5IrO75m9ZOI"></script>
-  <script src="js/maps.js"></script>
-  <link rel="stylesheet" href="css/style.css">
-</head>
-<body onload="createMap()">
-  <h1>Hello Google Maps</h1>
-  <div id="map"></div>
-  <p>This page shows a Google Map!</p>
-</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Location</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/nav-footer.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkrY1XqHOusGtMlfsWSvFh5IrO75m9ZOI"></script>
+    <script src="js/home.js"></script>
+    <script src="js/maps.js"></script>
+  </head>
+  <body onload="createMap(); getLoginStatus()">
+    <nav>
+      <div class="logo">
+        <h1>Winnie Wan</h1>
+      </div>
+      <ul class="nav-li">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="experience.html">Experiences</a></li>
+        <li><a href="hobbies.html">Hobbies</a></li>
+        <li><a href="pets.html">Pets</a></li>
+        <li><a href="comments.html">Comments</a></li>
+        <li class="active"><a href="maps.html">Location</a></li>
+        <li id="login-button"></li>
+      </ul>
+    </nav>
+
+    <div>
+      <ul id="status-container"></ul>
+    </div> 
+
+    <div id="content"> 
+      <h2>Check out the places that I have been to!</h2>
+        <div id="map"></div>
+      <p>I am using a Google Maps API!</p>
+    </div>
+    
+    <div class="footer">
+      <div class="boxes">
+        <h1>Contact</h1>
+        <div class="box">
+          <a href="https://winniewan@google.com"><img src="./images/footer/gmail.png" alt="gmail"></a>
+        </div>
+        <div class="box">
+          <a href="https://www.linkedin.com/in/winniewan6/"><img src="./images/footer/linkedin.png" alt="linkedin"></a>
+        </div>
+        <div class="box">
+          <a href="https://github.com/winniewan"><img src="./images/footer/github.png" alt="github"></a>
+        </div>
+      </div>  
+    </div>
+  </body>
 </html>
