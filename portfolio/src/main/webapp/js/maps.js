@@ -10,10 +10,21 @@ function createMap() {
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
 
   var marker = new google.maps.Marker({
+    animation: google.maps.Animation.DROP,
     position: nycLatLng,
     title:"Hometown!"
   });
 
   // To add the marker to the map, call setMap();
   marker.setMap(map);
+
+  marker.addListener('click', toggleBounce);
+}
+
+function toggleBounce() {
+  if (marker.getAnimation() !== null) {
+    marker.setAnimation(null);
+  } else {
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+  }
 }
