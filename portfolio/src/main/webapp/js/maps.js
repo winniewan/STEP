@@ -8,11 +8,13 @@ function createMap() {
   }
   
   var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
+  
+  var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
   var marker = new google.maps.Marker({
     animation: google.maps.Animation.DROP,
     position: nycLatLng,
-    title:"Hometown!"
+    title: "Hometown!",
+    icon: image
   });
 
   // To add the marker to the map, call setMap();
