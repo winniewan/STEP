@@ -17,14 +17,4 @@ function createMap() {
 
   // To add the marker to the map, call setMap();
   marker.setMap(map);
-
-  marker.addListener('click', toggleBounce);
-}
-
-function toggleBounce() {
-  if (marker.getAnimation() !== null) {
-    marker.setAnimation(null);
-  } else {
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-  }
 }
