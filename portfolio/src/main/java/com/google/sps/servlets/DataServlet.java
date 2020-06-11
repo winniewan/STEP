@@ -1,6 +1,6 @@
 package com.google.sps.servlets;
 
-import com.google.sps.data.Data;
+import com.google.sps.data.UfoData;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/ufo-data")
 public class DataServlet extends HttpServlet {
 
-  private Collection<Data> ufoDatas;
+  private Collection<UfoData> ufoDatas;
 
   @Override
   public void init() {
@@ -29,7 +29,7 @@ public class DataServlet extends HttpServlet {
       double lat = Double.parseDouble(cells[0]);
       double lng = Double.parseDouble(cells[1]);
 
-      ufoDatas.add(new Data(lat, lng));
+      ufoDatas.add(new UfoData(lat, lng));
     }
     scanner.close();
   }
