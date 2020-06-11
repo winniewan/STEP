@@ -75,14 +75,12 @@ function drawRegionsMap() {
   
   fetch('/chart')
     .then(response => response.json())
-    .then((regionVotes) => {
-      Object.keys(regionVotes).forEach((region) => {
+    .then((regionVotes) => Object.keys(regionVotes).forEach((region) => {
         data.addRow([region, regionVotes[region]]);
-      });
 
-      const options = {};
-      let chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+        const options = {};
+        let chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
-      chart.draw(data, options);
-  });
+        chart.draw(data, options);
+    }));
 }
