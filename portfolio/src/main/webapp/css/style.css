@@ -1,11 +1,16 @@
 #content, #footer {
-  margin-left: auto;
-  margin-right: auto;
-  width: 650px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 650px;
 }
 
 #nycMap, #ufoMap {
-  border: thin solid black;
-  height: 500px;
-  width: 500px;
+    border: thin solid black;
+    height: 500px;
+    width: 500px;
+}
+
+#regions_div {
+    height: 500px;
+    width: 900px; 
 }
