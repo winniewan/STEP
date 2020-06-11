@@ -1,6 +1,6 @@
 function createMaps() {
   createNYCMap();
-  createCovidMap();
+  createUFOMap();
 }
 
 /** Creates a map and adds it to the page. */
@@ -40,8 +40,8 @@ function createNYCMap() {
 }
 
 /** Fetches UFO sightings data from the server and displays it in a map. */
-function createCovidMap() {
-  fetch('/covid-data').then(response => response.json()).then((covidData) => {
+function createUFOMap() {
+  fetch('/ufo-data').then(response => response.json()).then((ufoData) => {
     // Default center at MTV, CA.
     var LatLng = new google.maps.LatLng(35.78613674, -119.4491591);
     var mapOptions = {
@@ -49,11 +49,11 @@ function createCovidMap() {
       center: LatLng
     };
 
-    var covidMap = new google.maps.Map(document.getElementById("covidMap"), mapOptions);
+    var ufoMap = new google.maps.Map(document.getElementById("ufoMap"), mapOptions);
 
-    covidData.forEach((affectedArea) => {
+    ufoData.forEach((sighting) => {
       new google.maps.Marker(
-          {position: {lat: affectedArea.lat, lng: affectedArea.lng}, map: covidMap});
+          {position: {lat: sighting.lat, lng: sighting.lng}, map: ufoMap});
     });
   });
 }

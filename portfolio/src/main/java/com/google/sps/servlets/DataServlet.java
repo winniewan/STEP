@@ -11,15 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Returns Covid-19 data as a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}] */
-@WebServlet("/covid-data")
+/** Returns UFO Sighting data as a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}] */
+@WebServlet("/ufo-data")
 public class DataServlet extends HttpServlet {
 
-  private Collection<Data> covidDatas;
+  private Collection<Data> ufoDatas;
 
   @Override
   public void init() {
-    covidDatas = new ArrayList<>();
+    ufoDatas = new ArrayList<>();
 
     Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/ufo-data.csv"));
     while (scanner.hasNextLine()) {
@@ -29,7 +29,7 @@ public class DataServlet extends HttpServlet {
       double lat = Double.parseDouble(cells[0]);
       double lng = Double.parseDouble(cells[1]);
 
-      covidDatas.add(new Data(lat, lng));
+      ufoDatas.add(new Data(lat, lng));
     }
     scanner.close();
   }
@@ -38,7 +38,7 @@ public class DataServlet extends HttpServlet {
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
     Gson gson = new Gson();
-    String json = gson.toJson(covidDatas);
+    String json = gson.toJson(ufoDatas);
     response.getWriter().println(json);
   }
 }

@@ -1,6 +1,6 @@
 package com.google.sps.data;
 
-/** Represents COVID-19 affected area at a specific lat lng point. */
+/** Represents UFO sightings at a specific lat lng point. */
 public class Data {
   private double lat;
   private double lng;
