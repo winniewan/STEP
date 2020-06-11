@@ -7,7 +7,8 @@ function createMaps() {
     'packages':['geochart'],
     'mapsApiKey': 'AIzaSyBkrY1XqHOusGtMlfsWSvFh5IrO75m9ZOI'
   });
-    google.charts.setOnLoadCallback(drawRegionsMap);
+  
+  google.charts.setOnLoadCallback(drawRegionsMap);
 }
 
 /** Creates a map and adds it to the page. */
