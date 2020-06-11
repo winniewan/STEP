@@ -40,9 +40,38 @@
       <h2> Here's the UFO Sightings Map!</h2>
       <div id="ufoMap"></div>
       <p>I am using a Google Maps API!</p>
-      
+
+      <h2>Tell me where you want to visit after it's safe!</h2>
+      <form action="/chart" method="POST">
+        <div class="form-group">
+          <label>Country:</label>
+          <select id="region" name="region">
+            <option value="Indonesia">Indonesia</option>
+            <option value="India">India</option>
+            <option value="Iran">Iran</option>
+            <option value="Iraq">Iraq</option>
+            <option value="Ireland">Ireland</option>
+            <option value="Isle of Man">Isle of Man</option>
+            <option value="Israel">Israel</option>
+            <option value="Italy">Italy</option>
+            <option value="Jamaica">Jamaica</option>
+            <option value="Japan">Japan</option>
+            <option value="Jordan">Jordan</option>
+            <option value="Kazakhstan">Kazakhstan</option>
+            <option value="Kenya">Kenya</option>
+            <option value="Kiribati">Kiribati</option>
+            <option value="Korea North">Korea North</option>
+            <option value="Korea South">Korea South</option>
+          </select>
+        </div>
+
+        <button type="submit">Submit</button>
+
+      </form>
+
       <div id="regions_div"></div>
       <p>I am using the Charts API!</p>
+
     </div>
     
     <div class="footer">

@@ -69,19 +69,20 @@ function createUFOMap() {
 
 /** Display a simple hard-coded geomap using Charts API. */
 function drawRegionsMap() {
-  var data = google.visualization.arrayToDataTable([
-    ['Country', 'Popularity'],
-    ['Germany', 200],
-    ['United States', 300],
-    ['Brazil', 400],
-    ['Canada', 500],
-    ['France', 600],
-    ['Russia', 700]
-  ]);
+  const data = new google.visualization.DataTable();
+  data.addColumn('string', 'Country');
+  data.addColumn('number', 'Votes');
+  
+  fetch('/chart')
+    .then(response => response.json())
+    .then((regionVotes) => {
+      Object.keys(regionVotes).forEach((region) => {
+        data.addRow([region, regionVotes[region]]);
+      });
 
-  var options = {};
+      const options = {};
+      let chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
 
-  var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
-
-  chart.draw(data, options);
+      chart.draw(data, options);
+  });
 }
