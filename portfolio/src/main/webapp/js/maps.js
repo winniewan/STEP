@@ -1,3 +1,4 @@
+/** Calls all map functions. */
 function createMaps() {
   createNYCMap();
   createUFOMap();
@@ -23,6 +24,7 @@ function createNYCMap() {
     content: contentString
   });
   
+  // Add beach flag as styling to marker.
   var image = 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png';
   var marker = new google.maps.Marker({
     animation: google.maps.Animation.DROP,
@@ -30,7 +32,8 @@ function createNYCMap() {
     title: "Hometown!",
     icon: image
   });
-
+  
+  // Information window appears when user clicks on marker.
   marker.addListener('click', function() {
     infowindow.open(map, marker);
   });
@@ -41,19 +44,18 @@ function createNYCMap() {
 
 /** Fetches UFO sightings data from the server and displays it in a map. */
 function createUFOMap() {
-  fetch('/ufo-data').then(response => response.json()).then((ufoData) => {
-    // Default center at MTV, CA.
-    var LatLng = new google.maps.LatLng(35.78613674, -119.4491591);
-    var mapOptions = {
-      zoom: 7,
-      center: LatLng
-    };
+  // Default center at MTV, CA.
+  var LatLng = new google.maps.LatLng(35.78613674, -119.4491591);
+  var mapOptions = {
+    zoom: 7,
+    center: LatLng
+  };
+    
+  var ufoMap = new google.maps.Map(document.getElementById("ufoMap"), mapOptions);
 
-    var ufoMap = new google.maps.Map(document.getElementById("ufoMap"), mapOptions);
-
-    ufoData.forEach((sighting) => {
-      new google.maps.Marker(
-          {position: {lat: sighting.lat, lng: sighting.lng}, map: ufoMap});
-    });
-  });
+  fetch('/ufo-data')
+    .then(response => response.json())
+    .then((ufoData) => ufoData.forEach((sighting) => {
+      new google.maps.Marker({position: {lat: sighting.lat, lng: sighting.lng}, map: ufoMap});
+    }));
 }
