@@ -2,6 +2,12 @@
 function createMaps() {
   createNYCMap();
   createUFOMap();
+
+  google.charts.load('current', {
+    'packages':['geochart'],
+    'mapsApiKey': 'AIzaSyBkrY1XqHOusGtMlfsWSvFh5IrO75m9ZOI'
+  });
+    google.charts.setOnLoadCallback(drawRegionsMap);
 }
 
 /** Creates a map and adds it to the page. */
@@ -58,4 +64,23 @@ function createUFOMap() {
     .then((ufoData) => ufoData.forEach((sighting) => {
       new google.maps.Marker({position: {lat: sighting.lat, lng: sighting.lng}, map: ufoMap});
     }));
+}
+
+/** Display a simple hard-coded geomap using Charts API. */
+function drawRegionsMap() {
+  var data = google.visualization.arrayToDataTable([
+    ['Country', 'Popularity'],
+    ['Germany', 200],
+    ['United States', 300],
+    ['Brazil', 400],
+    ['Canada', 500],
+    ['France', 600],
+    ['RU', 700]
+  ]);
+
+  var options = {};
+
+  var chart = new google.visualization.GeoChart(document.getElementById('regions_div'));
+
+  chart.draw(data, options);
 }
