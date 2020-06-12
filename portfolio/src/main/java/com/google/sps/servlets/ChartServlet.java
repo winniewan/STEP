@@ -40,8 +40,8 @@ public class ChartServlet extends HttpServlet {
 
     try {
       regionEntity = datastore.get(entityKey);
-      Long preVote = (Long) regionEntity.getProperty("votes");
-      regionEntity.setProperty("votes", preVote + 1);
+      Long currentVoteCount = (Long) regionEntity.getProperty("votes");
+      regionEntity.setProperty("votes", currentVoteCount + 1);
     } catch (Exception e) {
       regionEntity.setProperty("name", region);
       regionEntity.setProperty("votes", 1);
