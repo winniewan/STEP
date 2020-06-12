@@ -3,6 +3,7 @@ package com.google.sps.servlets;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
+import com.google.appengine.api.datastore.EntityNotFoundException;
 import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.datastore.KeyFactory;
 import com.google.appengine.api.datastore.PreparedQuery;
@@ -35,14 +36,15 @@ public class ChartServlet extends HttpServlet {
   public synchronized void doPost(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
     String region = request.getParameter("region");
-    Entity regionEntity = new Entity("Region", region);
+    Entity regionEntity;
     Key entityKey = KeyFactory.createKey("Region", region);
 
     try {
       regionEntity = datastore.get(entityKey);
       Long currentVoteCount = (Long) regionEntity.getProperty("votes");
       regionEntity.setProperty("votes", currentVoteCount + 1);
-    } catch (Exception e) {
+    } catch (EntityNotFoundException e) {
+      regionEntity = new Entity("Region", region);
       regionEntity.setProperty("name", region);
       regionEntity.setProperty("votes", 1);
     }
