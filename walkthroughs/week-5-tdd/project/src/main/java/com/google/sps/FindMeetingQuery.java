@@ -51,7 +51,7 @@ public final class FindMeetingQuery {
     List<TimeRange> busyTimes = getBusyTimes(events, attendees);
 
     // Use the busy schedule to create a list of available times.
-    return getAvailableTimes(busyTimes, meetingDuration);;
+    return getAvailableTimes(busyTimes, meetingDuration);
   }
   
   /** 
