@@ -29,15 +29,27 @@ import java.util.Set;
 public final class FindMeetingQuery {
 
   /** 
-   * Query timeslots where all attendees must be free to attend the meeting.
+   * Query timeslots to find available time slots for attendees.
+   * Optional attendees are also considered depending on several cases:
+   * The basic functionality of optional attendees is that if one or more 
+   * time slots exists so that both mandatory and optional attendees can attend, 
+   * return those time slots. Otherwise, return the time slots that fit just 
+   * the mandatory attendees. 
+   *
    * Worst-case runtime: O(events * attendees).
   */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
-    Collection<String> attendees = request.getAttendees();
+    Collection<String> mandatoryAttendees = request.getAttendees();
+    Collection<String> allAttendees = new ArrayList<String>();
+    allAttendees.addAll(mandatoryAttendees);
+    allAttendees.addAll(request.getOptionalAttendees());
+    
+    // Available time list for all attendees, including optional attendees.
+    List<TimeRange> allAttendeesAvailableTimes = getAvailableTimes(events, allAttendees, request.getDuration());
 
-    // Edge case: No attendees.
-    if (attendees.isEmpty()) {
-      return Arrays.asList(TimeRange.WHOLE_DAY);
+    // Edge case: No mandatory attendees or at least one available time slot for all attendees.
+    if (mandatoryAttendees.isEmpty() || !allAttendeesAvailableTimes.isEmpty()) {
+        return allAttendeesAvailableTimes;
     }
 
     // Edge case: Meeting duration exceeds a whole day.
@@ -45,11 +57,46 @@ public final class FindMeetingQuery {
       return Arrays.asList();
     }
 
-    // Retrieve a schedule of when attendees are busy given events.
-    List<TimeRange> busyTimes = getBusyTimes(events, attendees);
+    // Create a busy schedule and use it to create a list of available times.
+    // If optional attendees is busy that creates 0 available time slots, ignore optional attendee(s).
+    return getAvailableTimes(events, mandatoryAttendees, request.getDuration());
+  }
 
-    // Use the busy schedule to create a list of available times.
-    return getAvailableTimes(busyTimes, request.getDuration());
+  /** 
+   * Create a list of timeslots where attendees are available based on meeting time duration.
+   * Runtime: O(n) where n = size of busyTimes list.
+  */
+  public List<TimeRange> getAvailableTimes(Collection<Event> events, Collection<String> attendees, long meetingDuration) {
+    List<TimeRange> busyTimes = getBusyTimes(events, attendees);
+    List<TimeRange> availableTimes = new ArrayList<TimeRange>();
+      
+    // Initialize the start time. 
+    int startTime = TimeRange.START_OF_DAY;
+
+    // Find non-busy times. 
+    for (TimeRange busyTime: busyTimes) {
+      int endTime = busyTime.start();
+          
+      // If there's a non-busy time slot, then check if meeting duration fits in time slot.
+      if (startTime < endTime) {
+        TimeRange timeslot = TimeRange.fromStartEnd(startTime, endTime, false);
+              
+        // If meeting duration fits into free timeslot, add it to availableTimes list.
+        if (timeslot.duration() >= meetingDuration) {
+          availableTimes.add(timeslot);
+        }
+      }
+
+      // Update startTime.
+      startTime = Math.max(startTime, busyTime.end());
+    }
+
+    // Add the rest of the day if there's any.
+    if (TimeRange.END_OF_DAY - startTime >= meetingDuration) {
+      availableTimes.add(TimeRange.fromStartEnd(startTime, TimeRange.END_OF_DAY, true));
+    }
+
+    return availableTimes;
   }
   
   /** 
@@ -80,41 +127,5 @@ public final class FindMeetingQuery {
 
     Collections.sort(busyTimes, TimeRange.ORDER_BY_START);
     return busyTimes;
-  }
-
-  /** 
-   * Create a list of timeslots where attendees are available based on meeting time duration.
-   * Runtime: O(n) where n = size of busyTimes list.
-  */
-  public List<TimeRange> getAvailableTimes(List<TimeRange> busyTimes, long meetingDuration) {
-    List<TimeRange> availableTimes = new ArrayList<TimeRange>();
-      
-    // Initialize the start time. 
-    int startTime = TimeRange.START_OF_DAY;
-
-    // Find non-busy times. 
-    for (TimeRange busyTime: busyTimes) {
-      int endTime = busyTime.start();
-          
-      // If there's a non-busy time slot, then check if meeting duration fits in time slot.
-      if (startTime < endTime) {
-        TimeRange timeslot = TimeRange.fromStartEnd(startTime, endTime, false);
-              
-        // If meeting duration fits into free timeslot, add it to availableTimes list.
-        if (timeslot.duration() >= meetingDuration) {
-          availableTimes.add(timeslot);
-        }
-      }
-
-      // Update startTime.
-      startTime = Math.max(startTime, busyTime.end());
-    }
-
-    // Add the rest of the day if there's any.
-    if (TimeRange.END_OF_DAY - startTime >= meetingDuration) {
-      availableTimes.add(TimeRange.fromStartEnd(startTime, TimeRange.END_OF_DAY, true));
-    }
-
-    return availableTimes;
   }
 }
