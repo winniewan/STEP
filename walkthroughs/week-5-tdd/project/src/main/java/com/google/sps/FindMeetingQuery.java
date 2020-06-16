@@ -39,6 +39,11 @@ public final class FindMeetingQuery {
    * Worst-case runtime: O(events * attendees).
   */
   public Collection<TimeRange> query(Collection<Event> events, MeetingRequest request) {
+    // Edge case: Meeting duration exceeds a whole day.
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
+      return Arrays.asList();
+    }
+
     Collection<String> mandatoryAttendees = request.getAttendees();
     Collection<String> allAttendees = new ArrayList<String>();
     allAttendees.addAll(mandatoryAttendees);
@@ -50,11 +55,6 @@ public final class FindMeetingQuery {
     // Edge case: No mandatory attendees or at least one available time slot for all attendees.
     if (mandatoryAttendees.isEmpty() || !allAttendeesAvailableTimes.isEmpty()) {
       return allAttendeesAvailableTimes;
-    }
-
-    // Edge case: Meeting duration exceeds a whole day.
-    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
-      return Arrays.asList();
     }
 
     // Create a busy schedule and use it to create a list of available times.
