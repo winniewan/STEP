@@ -40,10 +40,8 @@ public final class FindMeetingQuery {
       return Arrays.asList(TimeRange.WHOLE_DAY);
     }
 
-    long meetingDuration = request.getDuration();
-
     // Edge case: Meeting duration exceeds a whole day.
-    if (meetingDuration > TimeRange.WHOLE_DAY.duration()) {
+    if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
     }
 
@@ -51,7 +49,7 @@ public final class FindMeetingQuery {
     List<TimeRange> busyTimes = getBusyTimes(events, attendees);
 
     // Use the busy schedule to create a list of available times.
-    return getAvailableTimes(busyTimes, meetingDuration);
+    return getAvailableTimes(busyTimes, request.getDuration());
   }
   
   /** 
