@@ -49,7 +49,7 @@ public final class FindMeetingQuery {
 
     // Edge case: No mandatory attendees or at least one available time slot for all attendees.
     if (mandatoryAttendees.isEmpty() || !allAttendeesAvailableTimes.isEmpty()) {
-        return allAttendeesAvailableTimes;
+      return allAttendeesAvailableTimes;
     }
 
     // Edge case: Meeting duration exceeds a whole day.

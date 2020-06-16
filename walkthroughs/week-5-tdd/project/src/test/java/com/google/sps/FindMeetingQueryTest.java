@@ -341,7 +341,7 @@ public final class FindMeetingQueryTest {
     // schedule would result in no time slot exists.
     //
     // Events  : |--A--||--B--||----A----|
-    // Day     : |---------------------|
+    // Day     : |-----------------------|
     // Options :       |-----|
  
     Collection<Event> events = Arrays.asList(
